@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://workloadView.title">
+    <data>
+        <keyValueCollection id="workloadDc">
+            <loader id="workloadDl">
+                <query>
+                    select tsk.assignee, sum(tsk.estimatedEfforts) from Task_ tsk
+                    where tsk.isClosed = false group by tsk.assignee
+                </query>
+            </loader>
+            <properties>
+                <property name="assignee"/>
+                <property name="estimatedEfforts" datatype="long"/>
+            </properties>
+        </keyValueCollection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <layout>
+        <hbox id="buttonsPanel">
+            <button id="refreshBtn" action="workloadsDataGrid.refresh"/>
+            <button id="readBtn" action="workloadsDataGrid.read"/>
+        </hbox>
+        <dataGrid id="workloadsDataGrid" dataContainer="workloadDc" minWidth="100px" width="100%">
+            <actions>
+                <action id="read" type="list_read"/>
+                <action id="refresh" type="list_refresh"/>
+            </actions>
+            <columns>
+                <column property="assignee"/>
+                <column property="estimatedEfforts"/>
+            </columns>
+        </dataGrid>
+
+    </layout>
+</view>

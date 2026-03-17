@@ -22,6 +22,10 @@
       </entry>
     </moduleSettings>
   </component>
+  <component name="JmixLiquibaseChangesConfig">
+    <exclude-change idName="IDX_USER__ON_USERNAME" tagName="createIndex" />
+    <exclude-change idName="IDX_PROJECT_UNQ_NAME" tagName="createIndex" />
+  </component>
   <component name="JmixPluginProjectSettings">
     <option name="savedDbProperties">
       <list>

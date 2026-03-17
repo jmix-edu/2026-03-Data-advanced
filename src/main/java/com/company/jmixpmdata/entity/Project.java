@@ -1,6 +1,11 @@
 package com.company.jmixpmdata.entity;
 
+import com.company.jmixpmdata.datatype.ProjectLabels;
+import io.jmix.core.DeletePolicy;
+import io.jmix.core.annotation.DeletedBy;
+import io.jmix.core.annotation.DeletedDate;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
+import io.jmix.core.entity.annotation.OnDelete;
 import io.jmix.core.metamodel.annotation.Composition;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
@@ -8,6 +13,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -44,12 +50,18 @@ public class Project {
     @Column(name = "STATUS")
     private Integer status;
 
+    //    @PropertyDatatype("projectLabels")
+//    @Convert(converter = ProjectLabelsConverter.class)
+    @Column(name = "PROJECT_LABELS")
+    private ProjectLabels projectLabels;
+
     @JoinTable(name = "PROJECT_USER_LINK",
             joinColumns = @JoinColumn(name = "PROJECT_ID", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID"))
     @ManyToMany
     private List<User> participants;
 
+    @OnDelete(DeletePolicy.CASCADE)
     @Composition
     @OneToMany(mappedBy = "project")
     private List<Task> tasks;
@@ -58,6 +70,50 @@ public class Project {
     @NotNull
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     private Roadmap roadmap;
+
+    @Column(name = "VERSION", nullable = false)
+    @Version
+    private Integer version;
+
+    @DeletedBy
+    @Column(name = "DELETED_BY")
+    private String deletedBy;
+
+    @DeletedDate
+    @Column(name = "DELETED_DATE")
+    private OffsetDateTime deletedDate;
+
+    public OffsetDateTime getDeletedDate() {
+        return deletedDate;
+    }
+
+    public void setDeletedDate(OffsetDateTime deletedDate) {
+        this.deletedDate = deletedDate;
+    }
+
+    public String getDeletedBy() {
+        return deletedBy;
+    }
+
+    public void setDeletedBy(String deletedBy) {
+        this.deletedBy = deletedBy;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
+
+    public ProjectLabels getProjectLabels() {
+        return projectLabels;
+    }
+
+    public void setProjectLabels(ProjectLabels projectLabels) {
+        this.projectLabels = projectLabels;
+    }
 
     public Roadmap getRoadmap() {
         return roadmap;

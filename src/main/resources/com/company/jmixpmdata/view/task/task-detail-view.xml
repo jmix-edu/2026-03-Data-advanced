@@ -33,6 +33,8 @@
             </entityPicker>
             <dateTimePicker id="startDateField" property="startDate"/>
             <textField id="estimatedEffortsField" property="estimatedEfforts"/>
+            <comboBox id="labelField" property="label"/>
+            <checkbox id="isClosedField" property="isClosed"/>
         </formLayout>
         <hbox id="detailActions">
             <button id="saveAndCloseButton" action="saveAction"/>
