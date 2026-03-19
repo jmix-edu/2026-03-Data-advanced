@@ -35,6 +35,7 @@
             <textField id="estimatedEffortsField" property="estimatedEfforts"/>
             <comboBox id="labelField" property="label"/>
             <checkbox id="isClosedField" property="isClosed"/>
+            <dateTimePicker id="supposedEndDateField" property="supposedEndDate"/>
         </formLayout>
         <hbox id="detailActions">
             <button id="saveAndCloseButton" action="saveAction"/>

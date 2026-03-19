@@ -1,14 +1,15 @@
 package com.company.jmixpmdata.entity;
 
 import com.company.jmixpmdata.datatype.ProjectLabels;
+import com.company.jmixpmdata.validation.labelsSize.ProjectLabelsSize;
+import com.company.jmixpmdata.validation.validDatesProject.ValidDatesProject;
 import io.jmix.core.DeletePolicy;
 import io.jmix.core.annotation.DeletedBy;
 import io.jmix.core.annotation.DeletedDate;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.entity.annotation.OnDelete;
-import io.jmix.core.metamodel.annotation.Composition;
-import io.jmix.core.metamodel.annotation.InstanceName;
-import io.jmix.core.metamodel.annotation.JmixEntity;
+import io.jmix.core.entity.annotation.SystemLevel;
+import io.jmix.core.metamodel.annotation.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
@@ -25,6 +26,7 @@ import java.util.UUID;
         @UniqueConstraint(name = "IDX_PROJECT_UNQ_NAME", columnNames = {"NAME"})
 })
 @Entity
+@ValidDatesProject
 public class Project {
     @JmixGeneratedValue
     @Column(name = "ID", nullable = false)
@@ -53,6 +55,7 @@ public class Project {
     //    @PropertyDatatype("projectLabels")
 //    @Convert(converter = ProjectLabelsConverter.class)
     @Column(name = "PROJECT_LABELS")
+    @ProjectLabelsSize(min = 3, max = 5)
     private ProjectLabels projectLabels;
 
     @JoinTable(name = "PROJECT_USER_LINK",
@@ -71,6 +74,9 @@ public class Project {
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     private Roadmap roadmap;
 
+    @Column(name = "TOTAL_ESTIMATED_EFFORTS")
+    private Integer totalEstimatedEfforts;
+
     @Column(name = "VERSION", nullable = false)
     @Version
     private Integer version;
@@ -82,6 +88,61 @@ public class Project {
     @DeletedDate
     @Column(name = "DELETED_DATE")
     private OffsetDateTime deletedDate;
+
+    @SystemLevel
+    @Column(name = "OWNER_ID")
+    private UUID ownerId;
+
+    @Column(name = "TEST")
+    private String test;
+
+    @Column(name = "TEST2")
+    private Integer test2;
+
+    @DependsOnProperties({"ownerId"})
+    @JmixProperty
+    @Transient
+    private Customer owner;
+
+    public Integer getTest2() {
+        return test2;
+    }
+
+    public void setTest2(Integer test2) {
+        this.test2 = test2;
+    }
+
+    public String getTest() {
+        return test;
+    }
+
+    public void setTest(String test) {
+        this.test = test;
+    }
+
+    public Customer getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Customer owner) {
+        this.owner = owner;
+    }
+
+    public UUID getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(UUID ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public Integer getTotalEstimatedEfforts() {
+        return totalEstimatedEfforts;
+    }
+
+    public void setTotalEstimatedEfforts(Integer totalEstimatedEfforts) {
+        this.totalEstimatedEfforts = totalEstimatedEfforts;
+    }
 
     public OffsetDateTime getDeletedDate() {
         return deletedDate;

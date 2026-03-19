@@ -1,12 +1,16 @@
 package com.company.jmixpmdata.entity;
 
+import com.company.jmixpmdata.listener.TaskJpaListener;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
+import io.jmix.core.metamodel.annotation.JmixProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.UUID;
 
 @JmixEntity
@@ -15,6 +19,7 @@ import java.util.UUID;
         @Index(name = "IDX_TASK__PROJECT", columnList = "PROJECT_ID")
 })
 @Entity(name = "Task_")
+@EntityListeners(TaskJpaListener.class)
 public class Task {
     @JmixGeneratedValue
     @Column(name = "ID", nullable = false)
@@ -51,6 +56,18 @@ public class Task {
     @Column(name = "VERSION", nullable = false)
     @Version
     private Integer version;
+
+    @JmixProperty
+    @Transient
+    private LocalDateTime supposedEndDate;
+
+    public LocalDateTime getSupposedEndDate() {
+        return supposedEndDate;
+    }
+
+    public void setSupposedEndDate(LocalDateTime supposedEndDate) {
+        this.supposedEndDate = supposedEndDate;
+    }
 
     public Boolean getIsClosed() {
         return isClosed;
@@ -122,5 +139,16 @@ public class Task {
 
     public void setId(UUID id) {
         this.id = id;
+    }
+
+    @PostLoad
+    public void postLoad() {
+        if (estimatedEfforts != null) {
+            supposedEndDate = startDate != null
+                    ? startDate
+                    : LocalDateTime.of(LocalDate.now(), LocalTime.NOON);
+
+            supposedEndDate = supposedEndDate.plusHours(estimatedEfforts);
+        }
     }
 }

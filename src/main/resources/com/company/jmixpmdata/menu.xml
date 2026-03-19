@@ -9,6 +9,9 @@
         <item view="Roadmap.list" title="msg://com.company.jmixpmdata.view.roadmap/roadmapListView.title"/>
         <item view="ProjectStatsView" title="msg://com.company.jmixpmdata.view.projectstats/projectStatsView.title"/>
         <item view="WorkloadView" title="msg://com.company.jmixpmdata.view.workload/workloadView.title"/>
+        <item view="Customer.list" title="msg://com.company.jmixpmdata.view.customer/customerListView.title"/>
+        <item view="Order_.list" title="msg://com.company.jmixpmdata.view.order/orderListView.title"/>
+        <item view="CustomSearchView" title="msg://com.company.jmixpmdata.view.customsearch/customSearchView.title"/>
     </menu>
 
 </menu-config>

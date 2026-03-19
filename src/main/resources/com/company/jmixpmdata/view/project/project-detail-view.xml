@@ -10,6 +10,7 @@
                 <property name="participants" fetchPlan="_base"/>
                 <property name="tasks" fetchPlan="_base"/>
                 <property name="roadmap" fetchPlan="_base"/>
+                <property name="owner" fetchPlan="_base"/>
             </fetchPlan>
             <loader id="projectDl"/>
             <collection id="participantsDc" property="participants"/>
@@ -36,6 +37,12 @@
                 <actions>
                     <action id="entityLookup" type="entity_lookup"/>
                     <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+            <entityPicker id="ownerField" property="owner">
+                <actions>
+                    <action id="entityLookupAction" type="entity_lookup"/>
+                    <action id="entityClearAction" type="entity_clear"/>
                 </actions>
             </entityPicker>
             <select id="statusField" property="status"/>
@@ -102,6 +109,7 @@
                             <column property="name"/>
                             <column property="startDate"/>
                             <column property="estimatedEfforts"/>
+                            <column property="supposedEndDate"/>
                         </columns>
                     </dataGrid>
                 </vbox>
@@ -109,6 +117,8 @@
         </tabSheet>
         <hbox id="detailActions">
             <button id="saveAndCloseButton" action="saveAction"/>
+            <button id="commitWithValidationBtn" text="msg://commitWithValidationBtn.text"/>
+            <button id="performBeanValidationBtn" text="msg://performBeanValidationBtn.text"/>
             <button id="closeButton" action="closeAction"/>
         </hbox>
     </layout>
