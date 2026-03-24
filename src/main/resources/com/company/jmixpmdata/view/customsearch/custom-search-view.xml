@@ -9,13 +9,13 @@
             <loader id="customersDl">
                 <query>
                     <![CDATA[select e from Customer e]]>
-                    <condition>
-                        <and>
-                            <c:jpql>
-                                <c:where>e.firstName like :component_customerFirstNameField</c:where>
-                            </c:jpql>
-                        </and>
-                    </condition>
+<!--                    <condition>-->
+<!--                        <and>-->
+<!--                            <c:jpql>-->
+<!--                                <c:where>e.firstName like :component_customerFirstNameField</c:where>-->
+<!--                            </c:jpql>-->
+<!--                        </and>-->
+<!--                    </condition>-->
                 </query>
             </loader>
         </collection>
@@ -34,26 +34,20 @@
         </collection>
     </data>
     <facets>
-        <dataLoadCoordinator auto="false"/>
+        <dataLoadCoordinator auto="true">
+            <refresh loader="customersDl">
+                <onViewEvent type="Init"/>
+            </refresh>
+<!--            <refresh loader="ordersDl">-->
+<!--                <onContainerItemChanged container="customersDc"/>-->
+<!--            </refresh>-->
+        </dataLoadCoordinator>
     </facets>
     <layout>
-        <hbox id="tablesBox" width="100%" height="100%">
-            <vbox height="100%"
-                  width="100%"
-                  spacing="true"
-                  expand="customersDataGrid">
-                <textField id="customerFirstNameField"/>
-                <dataGrid id="customersDataGrid"
-                          dataContainer="customersDc"
-                          minHeight="20em"
-                          width="100%">
-                    <columns>
-                        <column property="firstName"/>
-                        <column property="lastName"/>
-                        <column property="email"/>
-                    </columns>
-                </dataGrid>
-            </vbox>
+        <entityComboBox id="customerFirstNameField"
+                        label="msg://customerFirstNameField/label"
+                        metaClass="Customer"
+                        itemsContainer="customersDc"/>
             <dataGrid id="ordersDataGrid"
                       dataContainer="ordersDc"
                       minHeight="20em"
@@ -65,6 +59,5 @@
                     <column property="date"/>
                 </columns>
             </dataGrid>
-        </hbox>
     </layout>
 </view>

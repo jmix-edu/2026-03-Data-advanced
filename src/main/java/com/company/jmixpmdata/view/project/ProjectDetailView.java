@@ -6,6 +6,7 @@ import com.company.jmixpmdata.datatype.ProjectLabels;
 import com.company.jmixpmdata.entity.Project;
 import com.company.jmixpmdata.entity.Roadmap;
 import com.company.jmixpmdata.view.main.MainView;
+import com.company.jmixpmdata.view.user.UserListView;
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.router.Route;
@@ -89,5 +90,10 @@ public class ProjectDetailView extends StandardDetailView<Project> {
         notifications.create(sb.toString())
                 .withPosition(Notification.Position.TOP_START)
                 .show();
+    }
+
+    @Install(to = "participantsDataGrid.addAction", subject = "viewConfigurer")
+    private void participantsDataGridAddActionViewConfigurer(final UserListView view) {
+        view.setFilterProject(getEditedEntity());
     }
 }
