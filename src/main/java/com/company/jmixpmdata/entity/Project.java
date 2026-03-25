@@ -93,32 +93,10 @@ public class Project {
     @Column(name = "OWNER_ID")
     private UUID ownerId;
 
-    @Column(name = "TEST")
-    private String test;
-
-    @Column(name = "TEST2")
-    private Integer test2;
-
     @DependsOnProperties({"ownerId"})
     @JmixProperty
     @Transient
     private Customer owner;
-
-    public Integer getTest2() {
-        return test2;
-    }
-
-    public void setTest2(Integer test2) {
-        this.test2 = test2;
-    }
-
-    public String getTest() {
-        return test;
-    }
-
-    public void setTest(String test) {
-        this.test = test;
-    }
 
     public Customer getOwner() {
         return owner;

@@ -12,6 +12,9 @@
         <item view="Customer.list" title="msg://com.company.jmixpmdata.view.customer/customerListView.title"/>
         <item view="Order_.list" title="msg://com.company.jmixpmdata.view.order/orderListView.title"/>
         <item view="CustomSearchView" title="msg://com.company.jmixpmdata.view.customsearch/customSearchView.title"/>
+        <item view="Task_repo.list" title="msg://com.company.jmixpmdata.view.task/taskListRepoView.title"/>
+        <item view="CustomerSubstringSearchView"
+              title="msg://com.company.jmixpmdata.view.customersubstringsearch/customerSubstringSearchView.title"/>
     </menu>
 
 </menu-config>
