@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<queries xmlns="http://jmix.io/schema/rest/queries">
+    <query name="openTasksByProject" entity="Task_" fetchPlan="_base">
+        <jpql><![CDATA[
+            select t from Task_ t
+            where t.project.id = :projectId
+              and t.isClosed = false
+            order by t.startDate desc
+        ]]></jpql>
+        <params>
+            <param name="projectId" type="java.util.UUID"/>
+        </params>
+    </query>
+</queries>

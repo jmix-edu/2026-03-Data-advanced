@@ -30,12 +30,13 @@ public interface ManagerRole{
     @EntityPolicy(entityClass = TimeEntry.class, actions = EntityPolicyAction.ALL)
     void timeEntry();
 
+    @EntityAttributePolicy(entityClass = User.class, attributes = {"id", "username"}, action = EntityAttributePolicyAction.VIEW)
     @EntityAttributePolicy(entityClass = User.class, attributes = {"firstName", "lastName", "timeZoneId"}, action = EntityAttributePolicyAction.MODIFY)
     @EntityPolicy(entityClass = User.class, actions = {EntityPolicyAction.READ, EntityPolicyAction.UPDATE})
     void user();
 
-    @MenuPolicy(menuIds = {"User.list", "Project.list", "TimeEntry.list", "Roadmap.list"})
-    @ViewPolicy(viewIds = {"User.list", "Project.list", "TimeEntry.list", "Roadmap.list", "Project.detail", "Roadmap.detail", "TimeEntry.detail", "User.detail", "LoginView", "MainView", "Task_.list"})
+    @MenuPolicy(menuIds = {"User.list", "Project.list", "TimeEntry.list", "Roadmap.list", "Task_repo.list"})
+    @ViewPolicy(viewIds = {"User.list", "Project.list", "TimeEntry.list", "Roadmap.list", "Project.detail", "Roadmap.detail", "TimeEntry.detail", "User.detail", "LoginView", "MainView", "Task_.list", "Task_repo.list"})
     void screens();
 
     @SpecificPolicy(resources = "ui.loginToUi")
